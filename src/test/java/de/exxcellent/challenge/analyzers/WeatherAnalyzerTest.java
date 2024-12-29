@@ -1,6 +1,5 @@
-package de.exxcellent.challenge;
+package de.exxcellent.challenge.analyzers;
 
-import de.exxcellent.challenge.analyzers.WeatherAnalyzer;
 import de.exxcellent.challenge.data.model.WeatherRecord;
 import org.junit.jupiter.api.Test;
 
