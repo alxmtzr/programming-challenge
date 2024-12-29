@@ -29,6 +29,7 @@ public class CsvReader<T> implements DataReader<T> {
             String line;
             boolean isHeader = true;
 
+            // skip header
             while ((line = reader.readLine()) != null) {
                 if (isHeader) {
                     isHeader = false;
