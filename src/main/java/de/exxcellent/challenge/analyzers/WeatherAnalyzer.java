@@ -16,12 +16,13 @@ public class WeatherAnalyzer implements Analyzer<WeatherRecord, Integer> {
         }
 
         return records.stream()
+                .filter(record -> record.maxTemp() >= record.minTemp()) // ignore invalid records with maxTemp < minTemp
                 .min((record1, record2) -> {
                     int spread1 = record1.maxTemp() - record1.minTemp();
                     int spread2 = record2.maxTemp() - record2.minTemp();
                     return Integer.compare(spread1, spread2);
                 })
                 .map(WeatherRecord::dayOfMonth)
-                .orElseThrow(() -> new IllegalArgumentException("No minimum spread found"));
+                .orElseThrow(() -> new IllegalArgumentException("No valid records found"));
     }
 }
