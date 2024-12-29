@@ -1,8 +1,11 @@
 package de.exxcellent.challenge;
 
 import de.exxcellent.challenge.analyzers.Analyzer;
+import de.exxcellent.challenge.analyzers.FootballAnalyzer;
 import de.exxcellent.challenge.analyzers.WeatherAnalyzer;
+import de.exxcellent.challenge.data.model.FootballTeam;
 import de.exxcellent.challenge.data.model.WeatherRecord;
+import de.exxcellent.challenge.parser.FootballCsvParser;
 import de.exxcellent.challenge.parser.WeatherCsvParser;
 import de.exxcellent.challenge.reader.CsvReader;
 import de.exxcellent.challenge.reader.DataReader;
@@ -31,8 +34,11 @@ public final class App {
             int dayWithSmallestTempSpread = weatherAnalyzer.analyze(weatherData);
             System.out.printf("Day with smallest temperature spread : %d%n", dayWithSmallestTempSpread);
         } else if ("--football".equalsIgnoreCase(args[0])) {
-            // Placeholder for football case
-            String teamWithSmallestGoalSpread = "A good team"; // Your goal analysis function call …
+            DataReader<FootballTeam> reader = new CsvReader<>(new FootballCsvParser());
+            List<FootballTeam> footballData = reader.read(args[1]);
+
+            Analyzer<FootballTeam, String> footballAnalyzer = new FootballAnalyzer();
+            String teamWithSmallestGoalSpread = footballAnalyzer.analyze(footballData);
             System.out.printf("Team with smallest goal spread       : %s%n", teamWithSmallestGoalSpread);
         }
     }

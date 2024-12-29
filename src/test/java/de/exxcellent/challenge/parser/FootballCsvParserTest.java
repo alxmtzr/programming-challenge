@@ -11,18 +11,18 @@ public class FootballCsvParserTest {
     @Test
     public void testParseValidLine() {
         // arrange
-        String line = "TeamA,30,10";
+        String line = "Arsenal,38,26,9,3,79,36,87";
         FootballCsvParser parser = new FootballCsvParser();
         FootballTeam result = parser.parse(line);
 
-        assertEquals("TeamA", result.team());
-        assertEquals(30, result.goals());
-        assertEquals(10, result.goalsAgainst());
+        assertEquals("Arsenal", result.team());
+        assertEquals(79, result.goals());
+        assertEquals(36, result.goalsAgainst());
     }
 
     @Test
     public void testInvalidCsvLine() {
-        String line = "TeamA,30,invalid"; // invalid value
+        String line = "Arsenal,38,26,9,3,invalid,36,87"; // invalid value
         FootballCsvParser parser = new FootballCsvParser();
 
         FootballTeam result = parser.parse(line);

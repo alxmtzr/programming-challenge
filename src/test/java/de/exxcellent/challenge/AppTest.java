@@ -1,6 +1,5 @@
 package de.exxcellent.challenge;
 
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayOutputStream;
@@ -34,9 +33,21 @@ class AppTest {
     }
 
     @Test
-    @Disabled
     void runFootball() {
-        App.main("--football", "de/exxcellent/challenge/football.csv");
+        String[] args = {"--football", "de/exxcellent/challenge/football.csv"};
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        PrintStream originalOut = System.out;
+        System.setOut(new PrintStream(outputStream));
+
+        try {
+            App.main(args);
+
+            String output = outputStream.toString();
+            assertTrue(output.contains("Team with smallest goal spread       : Aston_Villa"),
+                    "Output should contain 'Team with smallest goal spread       : Aston_Villa'");
+        } finally {
+            System.setOut(originalOut);
+        }
     }
 
 }
