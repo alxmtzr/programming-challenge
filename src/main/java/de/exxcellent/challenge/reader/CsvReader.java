@@ -37,7 +37,10 @@ public class CsvReader<T> implements DataReader<T> {
                 }
 
                 T record = parser.parse(line);
-                records.add(record);
+
+                if (record != null) {
+                    records.add(record); // only add valid records
+                }
             }
         } catch (Exception e) {
             throw new RuntimeException("Error reading CSV file: " + source, e);
