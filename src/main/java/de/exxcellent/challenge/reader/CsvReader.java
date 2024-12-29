@@ -10,6 +10,7 @@ import java.util.List;
 
 /**
  * Reads data from a CSV file and returns a list of records.
+ * Uses a {@link CsvParser} to parse each line of the CSV file into a record.
  */
 public class CsvReader<T> implements DataReader<T> {
 
