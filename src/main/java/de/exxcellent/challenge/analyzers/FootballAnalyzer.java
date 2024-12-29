@@ -32,5 +32,4 @@ public class FootballAnalyzer implements Analyzer<FootballTeam, String> {
         }
         return Math.abs(team.goals() - team.goalsAgainst());
     }
-
 }
