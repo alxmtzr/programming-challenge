@@ -26,20 +26,40 @@ public final class App {
      * @param args The CLI arguments passed
      */
     public static void main(String... args) {
-        if ("--weather".equalsIgnoreCase(args[0])) {
-            DataReader<WeatherRecord> reader = new CsvReader<>(new WeatherCsvParser());
-            List<WeatherRecord> weatherData = reader.read(args[1]);
-
-            Analyzer<WeatherRecord, Integer> weatherAnalyzer = new WeatherAnalyzer();
-            int dayWithSmallestTempSpread = weatherAnalyzer.analyze(weatherData);
-            System.out.printf("Day with smallest temperature spread : %d%n", dayWithSmallestTempSpread);
-        } else if ("--football".equalsIgnoreCase(args[0])) {
-            DataReader<FootballTeam> reader = new CsvReader<>(new FootballCsvParser());
-            List<FootballTeam> footballData = reader.read(args[1]);
-
-            Analyzer<FootballTeam, String> footballAnalyzer = new FootballAnalyzer();
-            String teamWithSmallestGoalSpread = footballAnalyzer.analyze(footballData);
-            System.out.printf("Team with smallest goal spread       : %s%n", teamWithSmallestGoalSpread);
+        if (args.length < 2) {
+            System.err.println("Usage: App --weather <path-to-weather-csv> | --football <path-to-football-csv>");
+            System.exit(1);
         }
+
+        switch (args[0].toLowerCase()) {
+            case "--weather":
+                handleWeather(args[1]);
+                break;
+            case "--football":
+                handleFootball(args[1]);
+                break;
+            default:
+                System.err.println("Invalid option. Use --weather or --football.");
+                System.exit(1);
+        }
+    }
+
+
+    private static void handleWeather(String filePath) {
+        DataReader<WeatherRecord> reader = new CsvReader<>(new WeatherCsvParser());
+        List<WeatherRecord> weatherData = reader.read(filePath);
+
+        Analyzer<WeatherRecord, Integer> weatherAnalyzer = new WeatherAnalyzer();
+        int dayWithSmallestTempSpread = weatherAnalyzer.analyze(weatherData);
+        System.out.printf("Day with smallest temperature spread : %d%n", dayWithSmallestTempSpread);
+    }
+
+    private static void handleFootball(String filePath) {
+        DataReader<FootballTeam> reader = new CsvReader<>(new FootballCsvParser());
+        List<FootballTeam> footballData = reader.read(filePath);
+
+        Analyzer<FootballTeam, String> footballAnalyzer = new FootballAnalyzer();
+        String teamWithSmallestGoalSpread = footballAnalyzer.analyze(footballData);
+        System.out.printf("Team with smallest goal spread       : %s%n", teamWithSmallestGoalSpread);
     }
 }
