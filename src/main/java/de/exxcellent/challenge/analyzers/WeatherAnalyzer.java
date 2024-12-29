@@ -4,6 +4,9 @@ import de.exxcellent.challenge.data.model.WeatherRecord;
 
 import java.util.List;
 
+/**
+ * Analyzes a list of {@link WeatherRecord}s and returns the day of the month with the smallest temperature spread.
+ */
 public class WeatherAnalyzer implements Analyzer<WeatherRecord, Integer> {
 
     @Override

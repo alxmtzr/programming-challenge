@@ -3,6 +3,9 @@ package de.exxcellent.challenge;
 import de.exxcellent.challenge.analyzers.Analyzer;
 import de.exxcellent.challenge.analyzers.WeatherAnalyzer;
 import de.exxcellent.challenge.data.model.WeatherRecord;
+import de.exxcellent.challenge.parser.WeatherCsvParser;
+import de.exxcellent.challenge.reader.CsvReader;
+import de.exxcellent.challenge.reader.DataReader;
 
 import java.util.List;
 
@@ -21,11 +24,8 @@ public final class App {
      */
     public static void main(String... args) {
         if ("--weather".equalsIgnoreCase(args[0])) {
-            List<WeatherRecord> weatherData = List.of(
-                    new WeatherRecord(1, 30, 10),
-                    new WeatherRecord(2, 25, 15),
-                    new WeatherRecord(3, 28, 20)
-            );
+            DataReader<WeatherRecord> reader = new CsvReader<>(new WeatherCsvParser());
+            List<WeatherRecord> weatherData = reader.read(args[1]);
 
             Analyzer<WeatherRecord, Integer> weatherAnalyzer = new WeatherAnalyzer();
             int dayWithSmallestTempSpread = weatherAnalyzer.analyze(weatherData);
