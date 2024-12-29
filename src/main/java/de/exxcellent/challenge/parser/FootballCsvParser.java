@@ -2,6 +2,9 @@ package de.exxcellent.challenge.parser;
 
 import de.exxcellent.challenge.data.model.FootballTeam;
 
+/**
+ * A parser for football data in CSV format.
+ */
 public class FootballCsvParser implements CsvParser<FootballTeam> {
     @Override
     public FootballTeam parse(String line) {
