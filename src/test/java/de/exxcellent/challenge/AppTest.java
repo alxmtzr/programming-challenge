@@ -13,10 +13,12 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
  * @author Benjamin Schmid <benjamin.schmid@exxcellent.de>
  */
 class AppTest {
+    private static final String VALID_WEATHER_FILE = "de/exxcellent/challenge/weather.csv";
+    private static final String VALID_FOOTBALL_FILE = "de/exxcellent/challenge/football.csv";
 
     @Test
     void runWeather() {
-        String[] args = {"--weather", "de/exxcellent/challenge/weather.csv"};
+        String[] args = {"--weather", VALID_WEATHER_FILE};
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         PrintStream originalOut = System.out;
         System.setOut(new PrintStream(outputStream));
@@ -34,7 +36,7 @@ class AppTest {
 
     @Test
     void runFootball() {
-        String[] args = {"--football", "de/exxcellent/challenge/football.csv"};
+        String[] args = {"--football", VALID_FOOTBALL_FILE};
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         PrintStream originalOut = System.out;
         System.setOut(new PrintStream(outputStream));
