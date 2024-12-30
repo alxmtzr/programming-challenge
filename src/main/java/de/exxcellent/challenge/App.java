@@ -47,7 +47,7 @@ public final class App {
 
     private static void handleWeather(String filePath) {
         DataReader<WeatherRecord> reader = new CsvReader<>(new WeatherCsvParser());
-        List<WeatherRecord> weatherData = reader.read(filePath);
+        List<WeatherRecord> weatherData = reader.fromResources(filePath);
 
         Analyzer<WeatherRecord, Integer> weatherAnalyzer = new WeatherAnalyzer();
         int dayWithSmallestTempSpread = weatherAnalyzer.analyze(weatherData);
@@ -56,7 +56,7 @@ public final class App {
 
     private static void handleFootball(String filePath) {
         DataReader<FootballTeam> reader = new CsvReader<>(new FootballCsvParser());
-        List<FootballTeam> footballData = reader.read(filePath);
+        List<FootballTeam> footballData = reader.fromResources(filePath);
 
         Analyzer<FootballTeam, String> footballAnalyzer = new FootballAnalyzer();
         String teamWithSmallestGoalSpread = footballAnalyzer.analyze(footballData);

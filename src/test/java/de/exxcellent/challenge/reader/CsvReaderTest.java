@@ -17,7 +17,7 @@ public class CsvReaderTest {
     @Test
     public void testReadWeatherData() {
         final DataReader<WeatherRecord> reader = new CsvReader<>(new WeatherCsvParser());
-        final List<WeatherRecord> weatherData = reader.read(VALID_WEATHER_FILE);
+        final List<WeatherRecord> weatherData = reader.fromResources(VALID_WEATHER_FILE);
 
         assertEquals(30, weatherData.size(), "Weather data should have 30 records");
         assertEquals(88, weatherData.get(0).maxTemp(), "First record should have max temp 88");
@@ -27,7 +27,7 @@ public class CsvReaderTest {
     @Test
     public void testEmptyFile() {
         final DataReader<WeatherRecord> reader = new CsvReader<>(new WeatherCsvParser());
-        final List<WeatherRecord> weatherData = reader.read(EMPTY_FILE);
+        final List<WeatherRecord> weatherData = reader.fromResources(EMPTY_FILE);
 
         assertTrue(weatherData.isEmpty(), "Weather data should be empty for an empty file");
     }
@@ -36,13 +36,13 @@ public class CsvReaderTest {
     public void testFileNotFound() {
         final DataReader<WeatherRecord> reader = new CsvReader<>(new WeatherCsvParser());
 
-        assertThrows(RuntimeException.class, () -> reader.read(MISSING_FILE), "Missing file should throw an exception");
+        assertThrows(RuntimeException.class, () -> reader.fromResources(MISSING_FILE), "Missing file should throw an exception");
     }
 
     @Test
     public void testPartiallyInvalidFile() {
         final DataReader<WeatherRecord> reader = new CsvReader<>(new WeatherCsvParser());
-        final List<WeatherRecord> weatherData = reader.read(INVALID_FILE);
+        final List<WeatherRecord> weatherData = reader.fromResources(INVALID_FILE);
 
         // there should be 3 valid records
         assertEquals(3, weatherData.size(), "Weather data should only include valid records");
