@@ -12,6 +12,9 @@ import de.exxcellent.challenge.reader.DataReader;
 
 import java.util.List;
 
+import static de.exxcellent.challenge.utils.PathUtils.isResourcePath;
+import static de.exxcellent.challenge.utils.PathUtils.isUrl;
+
 /**
  * The entry class for your solution. This class is only aimed as starting point and not intended as baseline for your software
  * design. Read: create your own classes and packages as appropriate.
@@ -47,7 +50,15 @@ public final class App {
 
     private static void handleWeather(String filePath) {
         DataReader<WeatherRecord> reader = new CsvReader<>(new WeatherCsvParser());
-        List<WeatherRecord> weatherData = reader.fromResources(filePath);
+        List<WeatherRecord> weatherData;
+
+        if (isResourcePath(filePath)) {
+            weatherData = reader.fromResources(filePath);
+        } else if (isUrl(filePath)) {
+            weatherData = reader.fromUrl(filePath);  // not implemented in the challenge
+        } else {
+            weatherData = reader.fromFile(filePath);  // not implemented in the challenge
+        }
 
         Analyzer<WeatherRecord, Integer> weatherAnalyzer = new WeatherAnalyzer();
         int dayWithSmallestTempSpread = weatherAnalyzer.analyze(weatherData);
@@ -56,10 +67,19 @@ public final class App {
 
     private static void handleFootball(String filePath) {
         DataReader<FootballTeam> reader = new CsvReader<>(new FootballCsvParser());
-        List<FootballTeam> footballData = reader.fromResources(filePath);
+        List<FootballTeam> footballData;
+
+        if (isResourcePath(filePath)) {
+            footballData = reader.fromResources(filePath);
+        } else if (isUrl(filePath)) {
+            footballData = reader.fromUrl(filePath);  // not implemented in the challenge
+        } else {
+            footballData = reader.fromFile(filePath);  // not implemented in the challenge
+        }
 
         Analyzer<FootballTeam, String> footballAnalyzer = new FootballAnalyzer();
         String teamWithSmallestGoalSpread = footballAnalyzer.analyze(footballData);
         System.out.printf("Team with smallest goal spread       : %s%n", teamWithSmallestGoalSpread);
     }
+
 }

@@ -15,7 +15,7 @@ public class CsvReaderTest {
     private static final String MISSING_FILE = "de/exxcellent/challenge/test_files/missing.csv";
 
     @Test
-    public void testReadWeatherData() {
+    public void testFromRecourcesWeatherData() {
         final DataReader<WeatherRecord> reader = new CsvReader<>(new WeatherCsvParser());
         final List<WeatherRecord> weatherData = reader.fromResources(VALID_WEATHER_FILE);
 
@@ -25,7 +25,7 @@ public class CsvReaderTest {
     }
 
     @Test
-    public void testEmptyFile() {
+    public void testFromResourcesEmptyFile() {
         final DataReader<WeatherRecord> reader = new CsvReader<>(new WeatherCsvParser());
         final List<WeatherRecord> weatherData = reader.fromResources(EMPTY_FILE);
 
@@ -33,14 +33,14 @@ public class CsvReaderTest {
     }
 
     @Test
-    public void testFileNotFound() {
+    public void testFromResourcesFileNotFound() {
         final DataReader<WeatherRecord> reader = new CsvReader<>(new WeatherCsvParser());
 
         assertThrows(RuntimeException.class, () -> reader.fromResources(MISSING_FILE), "Missing file should throw an exception");
     }
 
     @Test
-    public void testPartiallyInvalidFile() {
+    public void testFromResourcesInvalidFile() {
         final DataReader<WeatherRecord> reader = new CsvReader<>(new WeatherCsvParser());
         final List<WeatherRecord> weatherData = reader.fromResources(INVALID_FILE);
 
